@@ -12,8 +12,8 @@ namespace FinancialInstruments
 
 	CallOption::CallOption(const std::string &ticket,
 		const boost::gregorian::date &date,
-		const std::map<boost::gregorian::date, double> &priceList,
-		double strikePrice,
+		const std::map<boost::gregorian::date, Money> &priceList,
+		const Money &strikePrice,
 		const boost::gregorian::date &expireDate):
 		Option(ticket, date, priceList, strikePrice, expireDate)
 	{}

@@ -11,10 +11,10 @@ namespace FinancialInstruments
 		@brief		calculate the current value of short position underlying
 		@param[in]	shortPosition		pointer to time 0 underlying short position
 		*/
-		double CalculateCurrentValue(IShortPosition *shortPosition) const;
+		Money CalculateCurrentValue(IShortPosition *shortPosition) const;
 
 
-		double GetValue();
+		Money GetValue() const;
 	};
 
 }

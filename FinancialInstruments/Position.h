@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Money.h"
 
 namespace FinancialInstruments
 {
@@ -7,9 +8,9 @@ namespace FinancialInstruments
 	class Position abstract
 	{
 	protected:
-		Position(double value);
+		Position(const Money &value);
 
-		double	m_value;
+		Money	m_value;
 	};
 
 }

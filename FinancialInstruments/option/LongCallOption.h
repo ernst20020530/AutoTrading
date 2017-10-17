@@ -19,11 +19,11 @@ namespace FinancialInstruments
 			IStock *stock);
 
 		///interface ILongPosition
-		virtual double CalculateCurrentValue(ILongPosition *longPosition);
-		virtual double GetValue() const;
+		virtual Money CalculateCurrentValue(ILongPosition *longPosition);
+		virtual Money GetValue() const;
 
 		///interface IUnderlying
-		virtual double GetPrice(const boost::gregorian::date &date) const;
+		virtual Money GetPrice(const boost::gregorian::date &date) const;
 		virtual const boost::gregorian::date &GetDate() const; 
 		virtual const std::string &GetTicket() const;
 

@@ -16,17 +16,17 @@ namespace FinancialInstruments
 
 		const Option &operator = (const Option &o) = delete;
 
-		double GetStrikePrice() const;
+		Money GetStrikePrice() const;
 
 	protected:
 		Option(const std::string &ticket,
 			const boost::gregorian::date &date,
-			const std::map<boost::gregorian::date, double> &priceList,
-			double strikePrice,
+			const std::map<boost::gregorian::date, Money> &priceList,
+			const Money &strikePrice,
 			const boost::gregorian::date &expireDate);
 		Option(const Option &o);
 
-		const double	m_strikePrice;
+		const Money	m_strikePrice;
 		const boost::gregorian::date	m_expireDate;
 
 	};

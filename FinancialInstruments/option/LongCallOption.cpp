@@ -17,18 +17,18 @@ namespace FinancialInstruments
 		assert(stock != nullptr);
 	}
 
-	double LongCallOption::CalculateCurrentValue(ILongPosition *longPosition)
+	Money LongCallOption::CalculateCurrentValue(ILongPosition *longPosition)
 	{
 		assert(longPosition != nullptr);
-		return GetValue() - (longPosition != nullptr) ? longPosition->GetValue() : 0;
+		return GetValue() - ((longPosition != nullptr) ? longPosition->GetValue() : 0);
 	}
 
-	double LongCallOption::GetPrice(const boost::gregorian::date &date) const
+	Money LongCallOption::GetPrice(const boost::gregorian::date &date) const
 	{
 		return __super::GetPrice(date);
 	}
 
-	double LongCallOption::GetValue() const
+	Money LongCallOption::GetValue() const
 	{
 		return m_value;
 	}

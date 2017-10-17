@@ -1,7 +1,8 @@
 #pragma once
 
+
 #include "Stock.h"
-#include "ILongPosition.h"
+#include "IShortPosition.h"
 
 #include <boost/functional/factory.hpp>
 
@@ -10,24 +11,24 @@
 namespace FinancialInstruments
 {
 
-	class LongStock:	public Stock,
+	class ShortStock : public Stock,
 		public Position,
-		public ILongPosition
+		public IShortPosition
 	{
 	public:
-		LongStock(const Stock &stock);
+		ShortStock(const Stock &stock);
 
 		///interface IUnderlying
 		virtual Money GetPrice(const boost::gregorian::date &date) const;
 		virtual const boost::gregorian::date &GetDate() const;
 		virtual const std::string &GetTicket() const;
 
-		virtual Money CalculateCurrentValue(ILongPosition *longPosition) const;
+		virtual Money CalculateCurrentValue(IShortPosition *longPosition) const;
 		virtual Money GetValue() const;
 
 
 	};
 
-	typedef boost::factory<LongStock*> LongStockFactory;
+	typedef boost::factory<ShortStock*> ShortStockFactory;
 
 }

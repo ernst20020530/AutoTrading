@@ -5,6 +5,8 @@
 
 #include <boost/date_time/gregorian/greg_date.hpp>
 
+#include "Money.h"
+
 namespace FinancialInstruments
 {
 
@@ -24,8 +26,8 @@ namespace FinancialInstruments
 		void AddLongPosition(std::shared_ptr<ILongPosition> &longPosition);
 		void AddShortPosition(std::shared_ptr<IShortPosition> &shortPosition);
 
-		double CalculateValue() const;
-		double CalculateCurrentValue(const Portfolio& portfolio) const;
+		Money CalculateValue() const;
+		Money CalculateCurrentValue(const Portfolio& portfolio) const;
 
 
 	private:

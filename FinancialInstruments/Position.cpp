@@ -7,7 +7,7 @@
 namespace FinancialInstruments
 {
 
-	Position::Position(double value):
+	Position::Position(const Money &value):
 		m_value(value)
 	{}
 

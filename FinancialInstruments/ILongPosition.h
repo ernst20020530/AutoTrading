@@ -7,10 +7,10 @@ namespace FinancialInstruments
 
 	__interface ILongPosition : public IUnderlying
 	{
-		double CalculateCurrentValue(ILongPosition *longPosition);
+		Money CalculateCurrentValue(ILongPosition *longPosition) const;
 
 
-		double GetValue();
+		Money GetValue() const;
 
 		//double CalculateMaxProfit(IUnderlying *underlying) const;
 		//double CalculateRealizedPremium(IUnderlying *underlying) const;

@@ -5,6 +5,8 @@
 
 #include <cassert>
 
+#include <General.h>
+
 namespace FinancialInstruments
 {
 
@@ -13,18 +15,18 @@ namespace FinancialInstruments
 		Position(stock.GetPrice(stock.GetDate()))
 	{}
 
-	double LongStock::CalculateCurrentValue(ILongPosition *longPosition) const
+	Money LongStock::CalculateCurrentValue(ILongPosition *longPosition) const
 	{
 		assert(longPosition != nullptr);
-		return GetValue() - (longPosition != nullptr) ? longPosition->GetValue() : 0;
+		return GetValue() - ((longPosition != nullptr) ? longPosition->GetValue() : 0);
 	}
 
-	double LongStock::GetPrice(const boost::gregorian::date &date) const
+	Money LongStock::GetPrice(const boost::gregorian::date &date) const
 	{
 		return __super::GetPrice(date);
 	}
 
-	double LongStock::GetValue() const
+	Money LongStock::GetValue() const
 	{
 		return m_value;
 	}

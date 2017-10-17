@@ -10,17 +10,29 @@ namespace FinancialInstruments
 
 	Underlying::Underlying(const std::string &ticket,
 		const boost::gregorian::date &date,
-		const std::map<boost::gregorian::date, double> &priceList):
+		std::unique_ptr<std::map<boost::gregorian::date, Money>> &priceList):
 		m_ticket(ticket),
 		m_date(date),
-		m_priceList(priceList),
+		m_priceList(std::move(priceList)),
 		m_uuid(m_uuidGen())
 	{}
 
-	double Underlying::GetPrice(const boost::gregorian::date &date) const
+	Underlying::Underlying(const Underlying &&o):
+		m_ticket(o.m_ticket),
+		m_date(o.m_date),
+		m_priceList(),
+		m_uuid(o.m_uuid)
 	{
-		auto it = m_priceList.find(date);
-		return it != m_priceList.end() ? it->second : -1;
+		m_priceList->insert(std::move_iterator<PriceMap::iterator>(o.m_priceList->begin()),
+			std::move_iterator<PriceMap::iterator>(o.m_priceList->end()));
+	}
+
+
+	Money Underlying::GetPrice(const boost::gregorian::date &date) const
+	{
+		assert(m_priceList.get() != nullptr);
+		auto it = m_priceList->find(date);
+		return it != m_priceList->end() ? it->second : Money();
 	}
 
 	const boost::gregorian::date &Underlying::GetDate() const

@@ -40,9 +40,9 @@ namespace FinancialInstruments
 		m_shortPositionList->push_back(shortPosition);
 	}
 
-	double Portfolio::CalculateValue() const
+	Money Portfolio::CalculateValue() const
 	{
-		double value = 0;
+		Money value = 0;
 
 		assert(m_longPositionList.get() != nullptr);
 		value = std::accumulate(m_longPositionList->begin(), m_longPositionList->end(), value, [](auto v, auto it) {return v + it->GetValue(); });
@@ -51,7 +51,7 @@ namespace FinancialInstruments
 		return std::accumulate(m_shortPositionList->begin(), m_shortPositionList->end(), value, [](auto v, auto it) {return v + it->GetValue(); });
 	}
 
-	double Portfolio::CalculateCurrentValue(const Portfolio& portfolio) const
+	Money Portfolio::CalculateCurrentValue(const Portfolio& portfolio) const
 	{
 		return CalculateValue() - portfolio.CalculateValue();
 	}

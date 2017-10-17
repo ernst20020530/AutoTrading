@@ -11,14 +11,14 @@ namespace FinancialInstruments
 
 	Option::Option(const std::string &ticket,
 		const boost::gregorian::date &date,
-		const std::map<boost::gregorian::date, double> &priceList,
-		double strikePrice,
+		const std::map<boost::gregorian::date, Money> &priceList,
+		const Money &strikePrice,
 		const boost::gregorian::date &expireDate):
 		Underlying(ticket, date, priceList),
 		m_strikePrice(strikePrice),
 		m_expireDate(expireDate)
 	{
-		assert(strikePrice >= 0);
+		assert(strikePrice > 0);
 	}
 
 	Option::Option(const Option &o) :
@@ -27,7 +27,7 @@ namespace FinancialInstruments
 		m_expireDate(o.m_expireDate)
 	{}
 
-	double Option::GetStrikePrice() const
+	Money Option::GetStrikePrice() const
 	{
 		return m_strikePrice;
 	}

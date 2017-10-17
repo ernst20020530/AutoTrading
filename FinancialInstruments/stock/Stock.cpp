@@ -6,16 +6,9 @@
 namespace FinancialInstruments
 {
 
-	std::shared_ptr<Stock> Stock::CreateInstance(const std::string &ticket,
-		const boost::gregorian::date &date,
-		const std::map<boost::gregorian::date, double> &priceList)
-	{
-		return std::make_shared<Stock>(ticket, date, priceList);
-	}
-
 	Stock::Stock(const std::string &ticket,
 		const boost::gregorian::date &date,
-		const std::map<boost::gregorian::date, double> &priceList):
+		const std::map<boost::gregorian::date, Money> &priceList):
 		Underlying(ticket, date, priceList)
 	{}
 
@@ -24,12 +17,12 @@ namespace FinancialInstruments
 	{}
 
 	std::shared_ptr<Stock> Stock::CreateLaterInstance(const boost::gregorian::date &date,
-		const std::map<boost::gregorian::date, double> &priceList)
+		const std::map<boost::gregorian::date, Money> &priceList)
 	{
 		return std::make_shared<Stock>(GetTicket(), date, priceList);
 	}
 
-	double Stock::GetPrice(const boost::gregorian::date &date) const
+	Money Stock::GetPrice(const boost::gregorian::date &date) const
 	{
 		return __super::GetPrice(date);
 	}
