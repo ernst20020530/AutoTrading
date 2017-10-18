@@ -17,10 +17,18 @@ namespace FinancialInstruments
 		assert(stock != nullptr);
 	}
 
-	Money LongCallOption::CalculateCurrentValue(ILongPosition *longPosition)
+	LongCallOption::LongCallOption(LongCallOption &&o):
+		CallOption(std::move(o)),
+		Position(std::move(o))
+	{}
+
+	bool LongCallOption::CalculateCurrentValue(ILongPosition *longPosition, Money &curValue) const
 	{
 		assert(longPosition != nullptr);
-		return GetValue() - ((longPosition != nullptr) ? longPosition->GetValue() : 0);
+		if (longPosition->GetUUID() != GetUUID())
+			return false;
+		curValue = GetValue() - ((longPosition != nullptr) ? longPosition->GetValue() : 0);
+		return true;
 	}
 
 	Money LongCallOption::GetPrice(const boost::gregorian::date &date) const
@@ -41,6 +49,11 @@ namespace FinancialInstruments
 	const std::string &LongCallOption::GetTicket() const
 	{
 		return __super::GetTicket();
+	}
+
+	const boost::uuids::uuid &LongCallOption::GetUUID() const
+	{
+		return __super::GetUUID();
 	}
 
 }

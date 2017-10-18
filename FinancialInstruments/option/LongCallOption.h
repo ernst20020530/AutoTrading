@@ -17,15 +17,17 @@ namespace FinancialInstruments
 	public:
 		LongCallOption(const CallOption &callOption,
 			IStock *stock);
+		LongCallOption(LongCallOption &&o);
 
 		///interface ILongPosition
-		virtual Money CalculateCurrentValue(ILongPosition *longPosition);
+		virtual bool CalculateCurrentValue(ILongPosition *longPosition, Money &curValue) const;
 		virtual Money GetValue() const;
 
 		///interface IUnderlying
 		virtual Money GetPrice(const boost::gregorian::date &date) const;
 		virtual const boost::gregorian::date &GetDate() const; 
 		virtual const std::string &GetTicket() const;
+		virtual const boost::uuids::uuid &GetUUID() const;
 
 	};
 

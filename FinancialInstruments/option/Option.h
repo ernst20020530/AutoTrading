@@ -12,7 +12,7 @@ namespace FinancialInstruments
 	class Option abstract:	public Underlying
 	{
 	public:
-		Option(Option &&o) = delete;
+		Option(Option &&o);
 
 		const Option &operator = (const Option &o) = delete;
 
@@ -21,7 +21,7 @@ namespace FinancialInstruments
 	protected:
 		Option(const std::string &ticket,
 			const boost::gregorian::date &date,
-			const std::map<boost::gregorian::date, Money> &priceList,
+			std::unique_ptr<PricePair> &priceMap,
 			const Money &strikePrice,
 			const boost::gregorian::date &expireDate);
 		Option(const Option &o);

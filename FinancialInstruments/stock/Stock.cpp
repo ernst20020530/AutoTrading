@@ -8,18 +8,28 @@ namespace FinancialInstruments
 
 	Stock::Stock(const std::string &ticket,
 		const boost::gregorian::date &date,
-		const std::map<boost::gregorian::date, Money> &priceList):
-		Underlying(ticket, date, priceList)
+		std::unique_ptr<PricePair> &priceMap):
+		Underlying(ticket, date, priceMap)
+	{}
+
+	Stock::Stock(IUnderlyingClone *underlyingClone,
+		const boost::gregorian::date &date,
+		std::unique_ptr<PricePair> &priceMap) :
+		Underlying(underlyingClone->GetTicket(), date, priceMap, underlyingClone->GetUUID())
 	{}
 
 	Stock::Stock(const Stock &o):
 		Underlying(o)
 	{}
 
+	Stock::Stock(Stock &&o):
+		Underlying(std::move(o))
+	{}
+
 	std::shared_ptr<Stock> Stock::CreateLaterInstance(const boost::gregorian::date &date,
-		const std::map<boost::gregorian::date, Money> &priceList)
+		std::unique_ptr<PricePair> &priceMap)
 	{
-		return std::make_shared<Stock>(GetTicket(), date, priceList);
+		return std::make_shared<Stock>(static_cast<IUnderlyingClone*>(static_cast<IStock*>(this)), date, priceMap);
 	}
 
 	Money Stock::GetPrice(const boost::gregorian::date &date) const
@@ -34,7 +44,12 @@ namespace FinancialInstruments
 
 	const std::string &Stock::GetTicket() const
 	{
-		return __super::GetTicket();
+		return Underlying::GetTicket();
+	}
+
+	const boost::uuids::uuid &Stock::GetUUID() const
+	{
+		return Underlying::GetUUID();
 	}
 
 }

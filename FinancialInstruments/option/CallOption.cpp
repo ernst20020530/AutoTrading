@@ -12,14 +12,18 @@ namespace FinancialInstruments
 
 	CallOption::CallOption(const std::string &ticket,
 		const boost::gregorian::date &date,
-		const std::map<boost::gregorian::date, Money> &priceList,
+		std::unique_ptr<PricePair> &priceMap,
 		const Money &strikePrice,
 		const boost::gregorian::date &expireDate):
-		Option(ticket, date, priceList, strikePrice, expireDate)
+		Option(ticket, date, priceMap, strikePrice, expireDate)
 	{}
 
 	CallOption::CallOption(const CallOption &o) :
 		Option(o)
+	{}
+
+	CallOption::CallOption(CallOption &&o):
+		Option(std::move(o))
 	{}
 
 	//double CallOption::CalculateMaxProfit(IUnderlying *underlying) const

@@ -16,13 +16,16 @@ namespace FinancialInstruments
 	{
 	public:
 		LongStock(const Stock &stock);
+		LongStock(const LongStock &o) = delete;
+		LongStock(LongStock &&o);
 
 		///interface IUnderlying
 		virtual Money GetPrice(const boost::gregorian::date &date) const;
 		virtual const boost::gregorian::date &GetDate() const;
 		virtual const std::string &GetTicket() const;
+		virtual const boost::uuids::uuid &GetUUID() const;
 
-		virtual Money CalculateCurrentValue(ILongPosition *longPosition) const;
+		virtual bool CalculateCurrentValue(ILongPosition *longPosition, Money &curValue) const;
 		virtual Money GetValue() const;
 
 

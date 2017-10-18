@@ -15,10 +15,18 @@ namespace FinancialInstruments
 		Position(-stock.GetPrice(stock.GetDate()))
 	{}
 
-	Money ShortStock::CalculateCurrentValue(IShortPosition *shortPosition) const
+	ShortStock::ShortStock(ShortStock &&o):
+		Stock(std::move(o)),
+		Position(std::move(0))
+	{}
+
+	bool ShortStock::CalculateCurrentValue(IShortPosition *shortPosition, Money &curValue) const
 	{
 		assert(shortPosition != nullptr);
-		return GetValue() - ((shortPosition != nullptr) ? shortPosition->GetValue() : 0);
+		if (shortPosition->GetUUID() != GetUUID())
+			return false;
+		curValue = GetValue() - ((shortPosition != nullptr) ? shortPosition->GetValue() : 0);
+		return true;
 	}
 
 	Money ShortStock::GetPrice(const boost::gregorian::date &date) const
@@ -39,6 +47,11 @@ namespace FinancialInstruments
 	const std::string &ShortStock::GetTicket() const
 	{
 		return __super::GetTicket();
+	}
+
+	const boost::uuids::uuid &ShortStock::GetUUID() const
+	{
+		return __super::GetUUID();
 	}
 
 }

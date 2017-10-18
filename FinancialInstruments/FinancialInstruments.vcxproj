@@ -137,6 +137,7 @@
     <ClInclude Include="IShortPosition.h" />
     <ClInclude Include="IStock.h" />
     <ClInclude Include="IUnderlying.h" />
+    <ClInclude Include="IUnderlyingClone.h" />
     <ClInclude Include="Money.h" />
     <ClInclude Include="option\CallOption.h" />
     <ClInclude Include="option\LongCallOption.h" />

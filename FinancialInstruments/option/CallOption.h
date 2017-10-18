@@ -10,11 +10,11 @@ namespace FinancialInstruments
 	public:
 		CallOption(const std::string &ticket,
 			const boost::gregorian::date &date,
-			const std::map<boost::gregorian::date, Money> &priceList,
+			std::unique_ptr<PricePair> &priceMap,
 			const Money &strikePrice,
 			const boost::gregorian::date &expireDate);
 		CallOption(const CallOption &o);
-		CallOption(CallOption &&o) = delete;
+		CallOption(CallOption &&o);
 		const CallOption &operator = (const CallOption &o) = delete;
 
 	protected:

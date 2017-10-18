@@ -9,6 +9,8 @@ namespace FinancialInstruments
 	{
 	protected:
 		Position(const Money &value);
+		Position(const Position &o);
+		Position(Position &&o);
 
 		Money	m_value;
 	};

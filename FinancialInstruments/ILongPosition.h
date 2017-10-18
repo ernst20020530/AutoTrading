@@ -7,7 +7,7 @@ namespace FinancialInstruments
 
 	__interface ILongPosition : public IUnderlying
 	{
-		Money CalculateCurrentValue(ILongPosition *longPosition) const;
+		bool CalculateCurrentValue(ILongPosition *longPosition, Money &curValue) const;
 
 
 		Money GetValue() const;
